@@ -1,0 +1,7 @@
+---
+
+- name: start
+  service:
+    name: "{{postgres_service_prefix}}{{pgc.value.version}}-{{pgc.key}}"
+    state: started
+    enabled: yes

@@ -1,0 +1,21 @@
+---
+
+- name: create cluster
+  shell: "/usr/pgsql-{{item.value.version}}/bin/initdb -k -D {{postgres_data_base}}/{{item.value.version}}/{{item.key}} -U postgres -E UTF8 --locale en_US.UTF-8"
+  args:
+    creates: "{{postgres_config_base}}/{{item.value.version}}/{{item.key}}/postgresql.conf"
+  become: true
+  become_user: postgres
+  with_dict:
+    - "{{postgres_cluster}}"
+  when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
+
+- name: create cluster
+  shell: "/usr/bin/pg_createcluster --locale en_US.UTF-8 -e UTF8 -p {{item.value.port}} {{item.value.version}} {{item.key}} -- -k"
+  args:
+    creates: "{{postgres_config_base}}/{{item.value.version}}/{{item.key}}/postgresql.conf"
+  become: true
+  become_user: postgres
+  with_dict:
+    - "{{postgres_cluster}}"
+  when: ansible_distribution == 'Debian'

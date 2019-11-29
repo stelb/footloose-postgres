@@ -1,0 +1,10 @@
+servers={
+{% for key in postgres_cluster %}
+  '{{ key }}': {
+    'host': 'localhost',
+    'port': '{{postgres_cluster[key].port}}',
+    'database': 'powa'
+  }
+{% endfor %}
+}
+cookie_secret="3fce85ffdc58c358ba173ff6c8daa22dbd9ef119"

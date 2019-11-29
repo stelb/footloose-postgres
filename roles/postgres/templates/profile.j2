@@ -1,0 +1,6 @@
+echo Default database: {{postgres_cluster | first}}
+. {{postgres_cluster | first}}.env
+
+alias cdlog='cd $PGDATA;cd $(psql -Xtc "show log_directory;")'
+alias taillog='cd $PGDATA;cd $(psql -Xtc "show log_directory;"); tail -50f $(ls -rta | tail -1)'
+alias cddata='cd $PGDATA'

@@ -1,0 +1,21 @@
+---
+- name: install keepalived
+  yum:
+    name: keepalived
+
+- name: keepalive config
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+
+- name: check master script
+  template:
+    src: check_master.sh.j2
+    dest: /etc/keepalived/check_master.sh
+    mode: '0755'
+
+- name: start service
+  service:
+    name: keepalived
+    state: started
+    enabled: yes

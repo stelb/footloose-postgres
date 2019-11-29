@@ -1,0 +1,11 @@
+---
+- name: debian repo key
+  apt_key:
+    url: "{{debian_repo_key}}"
+    state: present
+- name: debian repo
+  apt_repository:
+    repo: "{{debian_repo}}"
+    state: present
+    update_cache: yes
+    validate_certs: no

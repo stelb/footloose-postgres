@@ -1,0 +1,3 @@
+---
+- name: base | os dependant tasks
+  include_tasks: "{{ansible_distribution}}.yml"

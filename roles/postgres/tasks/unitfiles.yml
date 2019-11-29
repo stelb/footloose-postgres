@@ -1,0 +1,16 @@
+---
+#/usr/lib/systemd/system/postgresql-9.6.service
+# Environment=PGDATA=/var/lib/pgsql/9.6/data/
+
+- name: copy dist unitfile
+  copy:
+    dest: "/usr/lib/systemd/system/postgresql-{{pgc.value.version}}-{{pgc.key}}.service"
+    src: /usr/lib/systemd/system/postgresql-{{pgc.value.version}}.service
+    remote_src: true
+    force: false
+
+- name: fix unitfile
+  lineinfile:
+    path: "/usr/lib/systemd/system/postgresql-{{pgc.value.version}}-{{pgc.key}}.service"
+    line: "Environment=PGDATA=/var/lib/pgsql/{{pgc.value.version}}/{{pgc.key}}"
+    regexp: '^Environment=PGDATA='

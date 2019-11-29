@@ -1,0 +1,3 @@
+[footloose]
+postgres-db0 ansible_connection=docker
+postgres-db1 ansible_connection=docker

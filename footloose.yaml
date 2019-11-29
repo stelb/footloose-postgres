@@ -1,0 +1,15 @@
+cluster:
+  name: postgres
+  privateKey: cluster-key
+machines:
+- count: 3
+  spec:
+    backend: docker
+    image: quay.io/footloose/centos7:0.6.0
+    networks:
+    - postgres-cluster
+    name: db%d
+    portMappings:
+    - containerPort: 22
+    - containerPort: 5432
+    - containerPort: 8888

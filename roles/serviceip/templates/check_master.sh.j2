@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# managed by ansible!
+
+if [ -f /var/lib/pgsql/9.6/db01-live/recovery.conf ]; then
+  systemctl stop keepalived.service
+fi

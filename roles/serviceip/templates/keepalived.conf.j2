@@ -1,0 +1,40 @@
+! Configuration File for keepalived
+
+! managed by ansible!
+
+global_defs {
+   script_user postgres
+#   enable_script_security
+#   router_id DB01_LIVE
+#   vrrp_skip_check_adv_addr
+#   vrrp_strict
+#   vrrp_garp_interval 0
+#   vrrp_gna_interval 0
+}
+
+vrrp_script check_master {
+    script "/etc/keepalived/check_master.sh"
+    interval 2
+    weight -5
+    fall 3
+    rise 2
+}
+
+vrrp_instance db01-live {
+    state MASTER
+    interface eth2
+    virtual_router_id 51
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        10.54.248.161
+    }
+    track_script {
+    	# configure monitor module
+        check_master
+    }
+}

@@ -1,0 +1,21 @@
+---
+postgres_sys_user:
+  postgres:
+  replication:
+    options: replication
+
+postgres_sys_database:
+  - name: powa
+    extension:
+      - powa
+      - pg_stat_statements
+      - pg_qualstats
+      - hypopg
+      - pg_stat_kcache
+
+postgres_sys_hba:
+  - contype: host
+    users: replication
+    source: samenet
+    databases: replication
+    method: md5

@@ -1,0 +1,105 @@
+---
+# * mounts
+# * packages
+# * vip
+# * systemd config
+# * initdb
+#   * postgres config (postgresql.conf)
+#   * startup
+#   * prepare replication (user, pg_hba.conf, .pgpass, reload)
+- name: mounts
+  import_tasks: mounts.yml
+
+- name: setup postgres repo
+  include_tasks: "setup-{{ansible_distribution}}.yml"
+
+- name: install packages
+  include_tasks: packages.yml
+  with_items:
+    - "{{postgres_version}}"
+
+- include_vars: "{{ansible_pkg_mgr}}.yml"
+
+- name: startup config
+  include_tasks: unitfiles.yml
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+  when: ansible_distribution == 'Redhat' or ansible_distribution == 'CentOS'
+
+- name: createcluster
+  import_tasks: createcluster.yml
+  when: inventory_hostname == postgres_primary
+
+- name: postgresql.conf primary
+  include_tasks: config.yml
+  when: inventory_hostname == postgres_primary
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+
+- name: pg_hba.conf primary
+  include_tasks: hba.yml
+  when: inventory_hostname == postgres_primary
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+
+- name: 'service: start & enable master'
+  include_tasks: service.yml
+  when: inventory_hostname == postgres_primary
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+
+- name: create dbs, users, hba
+  include_tasks: manage.yml
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+
+- name: replication setup
+  include_tasks: replication.yml
+  #when: inventory_hostname != postgres_primary
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+
+- name: postgresql.conf replication
+  include_tasks: config.yml
+  when: inventory_hostname != postgres_primary
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+- name: pg_hba.conf replication
+  include_tasks: hba.yml
+  when: inventory_hostname != postgres_primary
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+
+- name: 'service: start & enable replication'
+  include_tasks: service.yml
+  when: inventory_hostname != postgres_primary
+  with_dict:
+    - "{{postgres_cluster}}"
+  loop_control:
+    loop_var: pgc
+
+- name: powa
+  import_tasks: powa.yml
+
+- name: pgbackrest
+  import_tasks: pgbackrest.yml
+
+- name: OS user config
+  import_tasks: osuserconfig.yml
+  tags: postgres_shell

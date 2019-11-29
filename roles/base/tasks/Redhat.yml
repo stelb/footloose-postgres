@@ -1,0 +1,12 @@
+---
+
+- name: 'base | basic tools'
+  yum:
+    name:
+    - screen
+    - iotop
+    - iftop
+    - vim
+    - mlocate
+    - psmisc
+    - ncdu

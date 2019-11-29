@@ -1,0 +1,6 @@
+---
+service_network_interfaces:
+- name: postgres
+  nic: eth2
+  ipaddr:
+  netmask: 255.255.255.0

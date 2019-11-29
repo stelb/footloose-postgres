@@ -1,0 +1,13 @@
+---
+- name: powa-web.conf
+  template:
+    src: powa-web.conf.j2
+    dest: /etc/powa-web.conf
+  when: inventory_hostname == postgres_primary and ansible_pkg_mgr != 'apt'
+
+- name: start powa
+  service:
+    name: powa-web-{{postgres_powa_version|default(postgres_version|max)}}
+    state: started
+    enabled: yes
+  when: inventory_hostname == postgres_primary and ansible_pkg_mgr != 'apt'

@@ -1,0 +1,15 @@
+---
+- include_vars: "{{var_file}}"
+  loop_control:
+    loop_var: var_file
+  with_first_found:
+    - "packages-{{ansible_pkg_mgr}}.yml"
+    - packages-default.yml
+
+- debug:
+    var: postgres_packages
+
+- name: install packages
+  package:
+    name:
+      "{{postgres_packages}}"

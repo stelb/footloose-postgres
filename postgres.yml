@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+  - role: base
+  - role: postgres
+  - role: serviceip

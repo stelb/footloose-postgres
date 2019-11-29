@@ -1,0 +1,6 @@
+---
+- name: "centos | install epel"
+  yum:
+    name:
+      - epel-release
+      - "{{centos_repo}}"

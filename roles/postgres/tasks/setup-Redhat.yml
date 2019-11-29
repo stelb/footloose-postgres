@@ -1,0 +1,4 @@
+---
+- name: add rhn channel for postgres
+  debug:
+    msg: "not yet, must be done manually as of now"
