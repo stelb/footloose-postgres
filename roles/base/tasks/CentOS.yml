@@ -14,4 +14,17 @@
     - vim
     - mlocate
     - psmisc
+    - htop
     - ncdu
+
+- name: Creates default /www
+  file: path=/www state=directory
+  tags: defaultdir
+
+- name: Creates default /www/bin/
+  file: path=/www/bin state=directory
+  tags: defaultdir
+
+- name: Creates root bashrc
+  copy: src=bashrc dest=/root/.bashrc owner=root group=root
+  tags: bashrc

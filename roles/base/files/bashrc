@@ -1,0 +1,24 @@
+
+###########################################################################
+##
+##       THIS FILE IS UNDER ANSIBLE CONTROL - CHANGES WILL BE ROLLBACKED
+##       managed by root
+##
+############################################################################
+
+export env="services"
+export PS1='\[\033[0;31m\][$(echo "${env^^}")] \[\033[01;32m\]\h\[\033[01;31m\]\[\033[01;36m\].`dnsdomainname`\[\033[00m\] \W \$ '
+export HISTTIMEFORMAT="%F %T   "
+umask 022
+export LS_OPTIONS='--color=auto'
+eval `dircolors`
+
+######## Aliases
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -laF'
+alias l='ls $LS_OPTIONS -lA'
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias dir='ls -laF'
+alias df='df -h'
