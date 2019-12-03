@@ -23,5 +23,12 @@ Test will be done with CentOS
     $ footloose create
     ...
     $ ansible-playbook -i inventory postgres.yml
+    $ footloose ssh root@db0
 
 Debian Tests cannot be done with images provided by footloose, as python is missing
+
+## pgrestbackup
+
+    $ /usr/bin/pgbackrest backup --stanza db01live
+
+
