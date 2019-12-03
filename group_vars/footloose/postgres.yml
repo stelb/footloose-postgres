@@ -105,33 +105,6 @@ postgres_cluster:
       random_page_cost: 1.1
       effective_io_concurrency: 200
 
-jobcontrol_job_cron:
-  - name: "postgres_backup_full"
-    command: "/bin/pgbackrest --stanza db01live --type=full  backup"
-    state: present
-    hour: 1
-    minute: 10
-    weekday: 0
-    job_user: postgres
-    monitor: true
-    owner: ps-database
-    warn_count: 1
-    warn_message: full backup failed
-    crit_count: 1
-    crit_message: full backup failed multiple times
-  - name: "postgres_backup_incr"
-    command: "/bin/pgbackrest --stanza db01live backup"
-    state: present
-    hour: 1
-    minute: 10
-    weekday: 1-6
-    job_user: postgres
-    monitor: true
-    owner: ps-database
-    warn_count: 1
-    warn_message: incr backup failed
-    crit_count: 3
-    crit_message: incr backup failed multiple times
 
 
 
