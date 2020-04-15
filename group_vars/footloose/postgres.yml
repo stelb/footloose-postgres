@@ -5,7 +5,7 @@ postgres_version:
 postgres_cluster:
   db01live:
     version: 11
-    data: /var/lib/pgsql/10/db01live
+    data: /var/lib/pgsql/11/db01live
     port: 5432
     #vip: 10.54.248.161
     stanza: db01live
