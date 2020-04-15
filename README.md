@@ -22,7 +22,7 @@ Test will be done with CentOS
     $ docker network create postgres-cluster
     $ footloose create
     ...
-    $ ansible-playbook -i inventory postgres.yml
+    $ ansible-playbook postgres.yml
     $ footloose ssh root@db0
 
 Debian Tests cannot be done with images provided by footloose, as python is missing
