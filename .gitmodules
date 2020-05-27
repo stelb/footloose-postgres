@@ -1,0 +1,3 @@
+[submodule "roles/postgres"]
+	path = roles/postgres
+	url = https://github.com/stelb/ansible-role-postgres.git

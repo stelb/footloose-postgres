@@ -1,5 +1,0 @@
----
-postgres_data_base: /var/lib/postgresql
-postgres_config_base: /etc/postgresql
-
-postgres_service_prefix: postgresql@
