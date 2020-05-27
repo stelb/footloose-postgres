@@ -1,4 +1,4 @@
-# postgres setup with ansible
+# postgres setup with footloose and ansible
 
 ## Features
 
