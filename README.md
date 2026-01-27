@@ -1,5 +1,7 @@
 # postgres setup with footloose and ansible
 
+Now archived, no development since 2019, footloose is dead..
+
 ## Features
 
 * streaming replication
